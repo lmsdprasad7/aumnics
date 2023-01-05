@@ -1,0 +1,34 @@
+<form class="container m-4" [formGroup]="register">
+  <div class="mb-3">
+
+
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="mail" >
+    <span *ngIf="mail && mail.invalid && mail.touched" id="u" class="text-danger">*<span><small>*valid e-mail id required</small></span></span>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" formControlName="password" (keypress)="validPassword($event)" >
+    <div *ngIf="register.controls['password'].dirty&&len" class="text-danger"><span><small>*must required minimum 8 characters</small></span></div>
+    <div *ngIf="register.controls['password'].dirty&&upper &&!isUppercase" class="text-danger"><span><small>*must one uppercase required</small></span></div> 
+    <div *ngIf="register.controls['password'].dirty&&lower" class="text-danger"><span><small>*must one lowercase required </small></span></div>
+    <div *ngIf="register.controls['password'].dirty&&num" class="text-danger"><span><small>*must one number required</small></span></div>
+    <div *ngIf="register.controls['password'].dirty&&char" class="text-danger"><span><small>*must one special character required</small></span></div>
+    <!-- <div *ngIf="register.controls['password'].dirty&&['required']" class="text-danger"><span><small>**must required password</small></span></div> -->
+    <div *ngIf="register.touched">
+      <span class="error-msg" *ngIf="register.controls['password'].errors?.['required']"><span><small>*must required password</small></span></span>
+      <span class="error-msg" *ngIf="register.controls['password'].errors?.['minlength']"><span><small>*must require 8 characters</small></span></span>
+      
+
+    </div>
+   
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="register.invalid">Submit</button>
+</form>
+
+
+
+
+
+
